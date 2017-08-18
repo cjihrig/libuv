@@ -126,6 +126,12 @@ TEST_IMPL(fs_copyfile) {
   r = uv_fs_copyfile(NULL, &req, src, dst, 0, NULL);
   ASSERT(r == 0);
   handle_result(&req);
+  
+  /* Copies file using UV_FS_COPYFILE_FICLONE. */
+  unlink(dst);
+  r = uv_fs_copyfile(NULL, &req, fixture, dst, UV_FS_COPYFILE_FICLONE, NULL);
+  ASSERT(r == 0);
+  handle_result(&req);
 
   /* Copies file synchronously. Overwrites existing file. */
   r = uv_fs_copyfile(NULL, &req, fixture, dst, 0, NULL);
@@ -155,9 +161,9 @@ TEST_IMPL(fs_copyfile) {
   unlink(dst);
   r = uv_fs_copyfile(loop, &req, fixture, dst, 0, handle_result);
   ASSERT(r == 0);
-  ASSERT(result_check_count == 5);
-  uv_run(loop, UV_RUN_DEFAULT);
   ASSERT(result_check_count == 6);
+  uv_run(loop, UV_RUN_DEFAULT);
+  ASSERT(result_check_count == 7);
   unlink(dst); /* Cleanup */
 
   return 0;
