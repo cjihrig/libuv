@@ -50,7 +50,6 @@ typedef struct {
   QUEUE member;
   struct pollfd* items;
   unsigned long size;
-  int msg_queue;
 } uv__os390_epoll;
 
 /* epoll api */
