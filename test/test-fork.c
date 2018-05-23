@@ -329,7 +329,7 @@ TEST_IMPL(fork_signal_to_child_closed) {
     /* Wait for parent. read may fail if the parent tripped an ASSERT
        and exited, so this isn't in an ASSERT.
     */
-    read(sync_pipe2[0], sync_buf, 1);
+    ASSERT(read(sync_pipe2[0], sync_buf, 1) >= 0);
     ASSERT(0 == fork_signal_cb_called);
     printf("Exiting child \n");
     /* Note that we're deliberately not running the loop
