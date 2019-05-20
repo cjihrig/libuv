@@ -1937,6 +1937,8 @@ TEST_IMPL(fs_symlink) {
 #endif
   ASSERT(r == 0);
 #ifdef _WIN32
+  printf("req.ptr = %s\n", (char*)req.ptr);
+  printf("test_file_abs_buf = %s\n", test_file_abs_buf);
   ASSERT(stricmp(req.ptr, test_file_abs_buf) == 0);
 #else
   ASSERT(strcmp(req.ptr, test_file_abs_buf) == 0);
@@ -2099,6 +2101,9 @@ int test_symlink_dir_impl(int type) {
 #endif
   ASSERT(r == 0);
 #ifdef _WIN32
+  printf("req.ptr = %s\n", (char*)req.ptr);
+  printf("test_dir_abs_size = %d\n", test_dir_abs_size);
+  printf("test_dir = %s\n", test_dir);
   ASSERT(strlen(req.ptr) == test_dir_abs_size - 5);
   ASSERT(strnicmp(req.ptr, test_dir + 4, test_dir_abs_size - 5) == 0);
 #else
